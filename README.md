@@ -118,6 +118,33 @@ Basée sur une séparation claire entre les routes, les contrôleurs, et les ser
 - **Réponse** : Les bonnes pratiques pour les clés Redis incluent l'utilisation de noms de clés explicites et structurés (par exemple, `namespace:resource:id`), la limitation de la taille des clés, l'évitement de caractères spéciaux, et l'organisation logique pour faciliter leur gestion et leur recherche.
 
 
+## Documentation de l'API
+
+### Créer un cours
+**POST** `/api/courses`
+
+**Demonstration** :
+![Créer un cours](postCours.png)
+
+### Lister les cours
+**GET** `/api/courses`
+
+**Demonstration** :
+![Get All cours](getCourses.png)
+
+### Consulter un cours
+**GET** `/api/courses/:id`
+
+**Demonstration** :
+![Get un cours](getCours.png)
+
+### Supprimer un cours
+**DELETE** `/api/courses/:id`
+
+**Demonstration** :
+![Consulter un cours](delCours.png)
+
+
 
 
 
