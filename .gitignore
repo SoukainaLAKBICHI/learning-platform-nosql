@@ -1,3 +1,6 @@
-# Compléter ici !!!!???
+# `.gitignore` est utilisé pour spécifier les fichiers et dossiers qui doivent être ignorés par Git, évitant ainsi de les inclure dans les commits et le dépôt.
 
-node_modules
+node_modules/
+.env
+package-lock.json
+package.json
