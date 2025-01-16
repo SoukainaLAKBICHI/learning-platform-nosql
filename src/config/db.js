@@ -29,12 +29,55 @@ async function connectMongo() {
   }
 }
 
+
 async function connectRedis() {
-  // TODO: Implémenter la connexion Redis
-  // Gérer les erreurs et les retries
+  try {
+    // Crée une instance du client Redis
+    redisClient = redis.createClient({
+      url: config.redisUrl, 
+    });
+
+    // Écoute les événements pour détecter les erreurs
+    redisClient.on('error', (err) => {
+      console.error('Erreur de connexion Redis:', err.message);
+    });
+
+    // Connexion au serveur Redis
+    await redisClient.connect();
+
+    console.log('Connexion à Redis réussie');
+    return redisClient; 
+  } catch (error) {
+    console.error('Erreur lors de la tentative de connexion à Redis:', error.message);
+
+   
+  }
 }
 
-// Export des fonctions et clients
+function closeConnections() {
+  if (mongoClient) {
+    mongoClient.close().then(() => console.log('MongoDB connection closed.'));
+  }
+  if (redisClient) {
+    redisClient.quit().then(() => console.log('Redis connection closed.'));
+  }
+}
+
+// Handle process termination
+process.on('SIGINT', () => {
+  closeConnections();
+  process.exit(0);
+});
+
+process.on('SIGTERM', () => {
+  closeConnections();
+  process.exit(0);
+});
+
+// Export connections and database
 module.exports = {
-  // TODO: Exporter les clients et fonctions utiles
+  connectMongo,
+  connectRedis,
+  getMongoDb: () => db,
+  getRedisClient: () => redisClient,
 };
